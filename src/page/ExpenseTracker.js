@@ -8,19 +8,19 @@ import AddItem from "../components/AddItem";
 import ListItem from "../components/ListItem";
 
 const ExpenseTracker = () => {
-  const [addItemToDescription, setAddItemToDescription] = useState("");
-  const [addItemToAmount, setAddItemToAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
   const [incomeItems, setIncomeItems] = useState([]);
   const [expense, setExpense] = useState([]);
   const [paymentValue, setPaymentValue] = useState("Income");
 
-  const handleAddToDescription = (event) => {
+  const handleDescription = (event) => {
     console.log(event.target.value);
-    setAddItemToDescription(event.target.value);
+    setDescription(event.target.value);
   };
 
-  const handleAddItemAmount = (event) => {
-    setAddItemToAmount(event.target.value);
+  const handleAmount = (event) => {
+    setAmount(event.target.value);
   };
 
   const handleExpense = (event) => {
@@ -32,32 +32,26 @@ const ExpenseTracker = () => {
   const handleAddButtonClick = (event) => {
     if (paymentValue === "Income") {
       setIncomeItems((oldItem) => {
-        return [
-          ...oldItem,
-          { description: addItemToDescription, amount: addItemToAmount },
-        ];
+        return [...oldItem, { description: description, amount: amount }];
       });
     } else {
       setExpense((oldItem) => {
-        return [
-          ...oldItem,
-          { description: addItemToDescription, amount: addItemToAmount },
-        ];
+        return [...oldItem, { description: description, amount: amount }];
       });
     }
-    setAddItemToDescription("");
-    setAddItemToAmount("");
+    setDescription("");
+    setAmount("");
   };
   return (
     <>
       <Header expense={expense} incomeItems={incomeItems} />
       <AddItem
-        handleAddToDescription={handleAddToDescription}
-        handleAddItemAmount={handleAddItemAmount}
+        handleDescription={handleDescription}
+        handleAmount={handleAmount}
         handleExpense={handleExpense}
         handleAddButtonClick={handleAddButtonClick}
-        addItemToDescription={addItemToDescription}
-        addItemToAmount={addItemToAmount}
+        addItemToDescription={description}
+        addItemToAmount={amount}
       />
       <ListItem incomeItems={incomeItems} expense={expense} />
     </>

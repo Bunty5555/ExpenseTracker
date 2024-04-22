@@ -3,8 +3,8 @@ import React from "react";
 import NativeSelectDemo from "../DropDownList";
 
 const AddItem = ({
-  handleAddToDescription,
-  handleAddItemAmount,
+  handleDescription,
+  handleAmount,
   handleExpense,
   handleAddButtonClick,
   addItemToDescription,
@@ -22,16 +22,16 @@ const AddItem = ({
               type="search"
               color="warning"
               value={addItemToDescription}
-              onChange={handleAddToDescription}
+              onChange={handleDescription}
             />
             <TextField
               className="mr-5 bg-white"
               id="outlined-search"
               label="Amount"
-              type="search"
+              type="number"
               color="warning"
               value={addItemToAmount}
-              onChange={handleAddItemAmount}
+              onChange={handleAmount}
             />
             <NativeSelectDemo
               selectedValueProp={handleExpense}

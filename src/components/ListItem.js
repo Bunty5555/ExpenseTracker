@@ -11,25 +11,16 @@ const ListItem = ({ incomeItems, expense }) => {
               <div className="justify-between flex ">
                 <div className="pr-20 ">
                   {/* <form action="">{addItemToDescription}</form> */}
-                  <div className="mr-30 justify-between flex w-25">
+                  <ol className="justify-between w-25">
                     {incomeItems.map((item, index) => {
                       return (
-                        <ol className="flex justify-between" key={index}>
-                          <div>{item.description}</div>
-                          <div>{item.amount}</div>
-                        </ol>
+                        <div className="flex justify-between w-44" key={index}>
+                          <li>{item.description}</li>
+                          <li className="text-green-500">{item.amount} ⟨₹⟩</li>
+                        </div>
                       );
                     })}
-                  </div>
-                </div>
-
-                <div className="ml-20 text-green-700">
-                  {/* <form action="">{addItemToAmount}</form> */}
-                  {/* <ol>
-                    {incomeItems.map((item, index) => {
-                      return <li key={index}>{item.amount} ⟨₹⟩</li>;
-                    })}
-                  </ol> */}
+                  </ol>
                 </div>
               </div>
             </div>
@@ -40,16 +31,14 @@ const ListItem = ({ incomeItems, expense }) => {
                   {/* <form action="">{addItemToDescription}</form> */}
                   <ol>
                     {expense.map((item, index) => {
-                      return <li key={index}>{item.description}</li>;
-                    })}
-                  </ol>
-                </div>
-
-                <div className="ml-20 text-red -700 text-red-600">
-                  {/* <form action="">{addItemToAmount}</form> */}
-                  <ol>
-                    {expense.map((item, index) => {
-                      return <li key={index}>{item.amount} ⟨₹⟩</li>;
+                      return (
+                        <div className="flex justify-between w-44">
+                          <li key={index}>{item.description}</li>
+                          <li className="text-red-500" key={index}>
+                            {item.amount} ⟨₹⟩
+                          </li>
+                        </div>
+                      );
                     })}
                   </ol>
                 </div>
