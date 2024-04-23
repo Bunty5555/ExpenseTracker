@@ -2,16 +2,35 @@
 // import Button from "@mui/material/Button";
 // import TextField from "@mui/material/TextField";
 // import NativeSelectDemo from "./DropDownList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import AddItem from "../components/AddItem";
 import ListItem from "../components/ListItem";
 
+const getIncomeItems = () => {
+  let list = localStorage.getItem("incomeItems");
+  console.log(list);
+  if (list) {
+    return JSON.parse(localStorage.getItem("incomeItems"));
+  } else {
+    return [];
+  }
+};
+const getExpenseItem = () => {
+  let list = localStorage.getItem("expenseItem");
+  console.log(list);
+  if (list) {
+    return JSON.parse(localStorage.getItem("expenseItem"));
+  } else {
+    return [];
+  }
+};
+
 const ExpenseTracker = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [incomeItems, setIncomeItems] = useState([]);
-  const [expense, setExpense] = useState([]);
+  const [incomeItems, setIncomeItems] = useState(getIncomeItems());
+  const [expenseItem, setExpenseItem] = useState(getExpenseItem());
   const [paymentValue, setPaymentValue] = useState("Income");
 
   const handleDescription = (event) => {
@@ -22,6 +41,12 @@ const ExpenseTracker = () => {
   const handleAmount = (event) => {
     setAmount(event.target.value);
   };
+  useEffect(() => {
+    localStorage.setItem("incomeItems", JSON.stringify(incomeItems));
+  }, [incomeItems]);
+  useEffect(() => {
+    localStorage.setItem("expenseItem", JSON.stringify(expenseItem));
+  }, [expenseItem]);
 
   const handleExpense = (event) => {
     const selectValue = event.target.value;
@@ -35,7 +60,7 @@ const ExpenseTracker = () => {
         return [...oldItem, { description: description, amount: amount }];
       });
     } else {
-      setExpense((oldItem) => {
+      setExpenseItem((oldItem) => {
         return [...oldItem, { description: description, amount: amount }];
       });
     }
@@ -44,7 +69,7 @@ const ExpenseTracker = () => {
   };
   return (
     <>
-      <Header expense={expense} incomeItems={incomeItems} />
+      <Header expense={expenseItem} incomeItems={incomeItems} />
       <AddItem
         handleDescription={handleDescription}
         handleAmount={handleAmount}
@@ -53,7 +78,7 @@ const ExpenseTracker = () => {
         addItemToDescription={description}
         addItemToAmount={amount}
       />
-      <ListItem incomeItems={incomeItems} expense={expense} />
+      <ListItem incomeItems={incomeItems} expense={expenseItem} />
     </>
   );
 };
